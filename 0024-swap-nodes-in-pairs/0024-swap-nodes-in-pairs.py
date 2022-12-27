@@ -5,12 +5,10 @@
 #         self.next = next
 class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
         odds = head
-        if not odds:
-            return head
         evens = head.next
-        if not evens:
-            return head
         store = evens
         o = odds
         e = evens
