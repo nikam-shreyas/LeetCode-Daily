@@ -1,3 +1,7 @@
 # Write your MySQL query statement below
-select name as Customers from Customers left join Orders on Customers.id=Orders.customerId
-where customerId is Null;
+select Customers.name as 'Customers' 
+from Customers
+where Customers.id not in 
+(
+    Select customerid from Orders
+)
