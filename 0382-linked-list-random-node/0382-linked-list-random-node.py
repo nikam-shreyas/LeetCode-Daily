@@ -16,10 +16,12 @@ class Solution:
 
     def getRandom(self) -> int:
         skips = random.randint(0, self.n-1)
-        curr = self.head
-        for i in range(skips):
-            curr = curr.next
-        return curr.val
+        while skips>0:
+            self.ptr=self.ptr.next
+            if self.ptr is None:
+                self.ptr=self.head
+            skips-=1
+        return self.ptr.val
         
 
 
