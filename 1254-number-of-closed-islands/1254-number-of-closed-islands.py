@@ -1,19 +1,21 @@
 class Solution:
     def closedIsland(self, grid: List[List[int]]) -> int:
-        rows = len(grid)
-        cols = len(grid[0])
-        visited= [[0 for i in range(cols)] for j in range(rows)]
-        def area(x, y):
-            if not (0<=x<rows and 0<=y<cols):
-                return False
-            elif grid[x][y] or visited[x][y]:
-                return True
-            else:
-                visited[x][y]=1
-                return all([area(x+1, y), area(x-1, y), area(x, y-1), area(x, y+1)])
-        count = 0
-        for i in range(rows):
-            for j in range(cols):
-                if grid[i][j]==0 and visited[i][j]==0 and area(i, j):
-                    count+=1
-        return count
+        def floodfill(row,col):
+            
+            if   row==0 or row==len(grid)   -1: aux = True
+            elif col==0 or col==len(grid[0])-1: aux = True
+            else: aux = False
+
+            grid[row][col] = 1
+            if(row > 0              and grid[row-1][col] == 0): aux += floodfill(row-1,col)
+            if(row < len(grid)-1    and grid[row+1][col] == 0): aux += floodfill(row+1, col)
+            if(col > 0              and grid[row][col-1] == 0): aux += floodfill(row,col-1)
+            if(col < len(grid[0])-1 and grid[row][col+1] == 0): aux += floodfill(row, col+1)
+            return aux
+
+        res = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if(grid[i][j] == 0 and not floodfill(i,j)): res+=1
+                    
+        return res
