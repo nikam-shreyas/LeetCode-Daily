@@ -9,38 +9,27 @@ class Solution:
         visited = set()
         ans = []
         count = 0
-        def goright(r, left, right):
-            nonlocal count
-            for i in range(left, right+1):
-                ans.append(matrix[r][i])
-                count+=1
-        def godown(c, up, down):
-            nonlocal count
-            for i in range(up, down+1):
-                ans.append(matrix[i][c])
-                count+=1
-        def goleft(r, right, left):
-            nonlocal count
-            for i in range(right, left-1, -1):
-                ans.append(matrix[r][i])
-                count+=1
-        def goup(c, down, up):
-            nonlocal count
-            for i in range(down, up-1, -1):
-                ans.append(matrix[i][c])
-                count+=1
+            
                 
         while count<(rows*cols):
-            goright(up, left, right)
+            for i in range(left, right+1):
+                ans.append(matrix[up][i])
+                count+=1
             up+=1
             
-            godown(right, up, down)
+            for i in range(up, down+1):
+                ans.append(matrix[i][right])
+                count+=1
             right-=1
             
-            goleft(down, right, left)
+            for i in range(right, left-1, -1):
+                ans.append(matrix[down][i])
+                count+=1
             down-=1
             
-            goup(left, down, up)
+            for i in range(down, up-1, -1):
+                ans.append(matrix[i][left])
+                count+=1
             left+=1
             
         return ans[:(rows*cols)]
