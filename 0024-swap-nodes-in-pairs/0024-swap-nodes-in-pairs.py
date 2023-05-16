@@ -7,26 +7,19 @@ class Solution:
     def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head or not head.next:
             return head
-        odds = head
-        evens = head.next
-        store = evens
-        o = odds
-        e = evens
-        while odds and evens:
-            odds.next = evens.next
-            odds = odds.next
-            if odds:
-                evens.next = odds.next
-                evens = evens.next
-        if evens:
-            evens.next = None
-        while o and e:
-            enext = e.next
-            e.next = o
-            e = enext
-            if e:
-                onext = o.next
-                o.next = e
-                o = onext
-        return store
-            
+        dummy = ListNode(next = head)
+        prev = dummy
+        curr = head
+        nxt = head.next
+        while curr and nxt:
+            curr.next = nxt.next
+            nxt.next = curr
+            prev.next = nxt
+            prev = curr
+            curr = curr.next
+            if curr and curr.next:
+                nxt = curr.next
+            else:
+                break
+        return dummy.next
+        
