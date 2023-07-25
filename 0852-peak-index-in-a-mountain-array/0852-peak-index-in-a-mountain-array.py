@@ -1,15 +1,23 @@
 class Solution:
     def peakIndexInMountainArray(self, arr: List[int]) -> int:
-        low = 0
         n = len(arr)
+        
+        low = 0
         high = n-1
-        while low<=high:
-            mid = low+(high-low)//2
-            if mid>0 and mid<n-1:
-                if arr[mid-1]<arr[mid] and arr[mid]>arr[mid+1]:
-                    return mid
-                elif arr[mid-1]<arr[mid]:
-                    low = mid
-                else:
-                    high = mid
+        
+        while low<high:
+            # Binary Search
+            mid = (high+low)//2         
+            
+            # Mountain peak condition
+            if arr[mid-1]<arr[mid]>arr[mid+1]:
+                return mid
+            
+            # Left slope, climb up right
+            elif arr[mid-1]<arr[mid]:
+                low = mid
+            
+            # Right slope, climb up left
+            else:
+                high = mid
         
