@@ -1,7 +1,7 @@
 class Solution:
     def minimumDeleteSum(self, s1: str, s2: str) -> int:
         dp = {}
-        @lru_cache
+        
         def recurse(i, j):
             if (i, j) in dp:
                 return dp[(i, j)]
