@@ -15,5 +15,8 @@ class Solution:
         
         for i in range(1, r):
             for j in range(1, c):
-                dp[i][j]=dp[i-1][j]*abs(grid[i-1][j]-1)+dp[i][j-1]*abs(1-grid[i][j-1])
-        return dp[r-1][c-1]*abs(1-grid[r-1][c-1])
+                if grid[i][j]==0:
+                    dp[i][j]=dp[i-1][j]+dp[i][j-1]
+                else:
+                    dp[i][j]=0
+        return dp[r-1][c-1] if grid[r-1][c-1]==0 else 0
