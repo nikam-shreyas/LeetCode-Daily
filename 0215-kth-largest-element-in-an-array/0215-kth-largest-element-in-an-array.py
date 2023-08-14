@@ -1,22 +1,27 @@
 class Solution:
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-        minValue, maxValue = inf, -inf
+
+      def findKthLargest(self, nums: List[int], k: int) -> int:
+
+        # Initialize min and max values
+        min_val = float('inf')  
+        max_val = -float('inf')  
+
+        # Find min and max in list
         for num in nums:
-            if num>maxValue:
-                maxValue = num
-            if num<minValue:
-                minValue = num
-        
-        count = [0 for _ in range(maxValue-minValue+1)]
+            max_val = max(max_val, num)
+            min_val = min(min_val, num)
+
+        # Create frequency list of size (max_val - min_val + 1)
+        freq_list = [0 for _ in range(max_val - min_val + 1)]
+
+        # Populate frequency list
         for num in nums:
-            count[num-minValue]+=1
-        
-        for index in range(len(count)-1,-1,-1):
-            num = count[index]
-            k-=num
-            if k<=0:
-                return index+minValue
-        
-        return minValue
-            
-        
+            freq_list[num - min_val] += 1
+
+        # Find kth largest by traversing frequency list backwards
+        for i in range(len(freq_list)-1, -1, -1):
+            k -= freq_list[i]  
+            if k <= 0:
+                return i + min_val
+
+        return min_val
