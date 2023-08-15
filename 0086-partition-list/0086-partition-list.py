@@ -3,20 +3,44 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+# Partition a linked list around a pivot value x
 class Solution:
+
+    # Partition the given linked list head around pivot x
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
-        head1 = ListNode()
-        curr1 = head1
-        head2 = ListNode()
-        curr2 = head2
-        curr = head
-        while curr:
-            if curr.val<x:
-                curr1.next = ListNode(curr.val)
-                curr1 = curr1.next
+
+        # Start at the head of the list 
+        current = head  
+
+        # Initialize empty nodes for less than and greater than x lists
+        less_head = ListNode()
+        less_curr = less_head
+
+        greater_head = ListNode()  
+        greater_curr = greater_head
+
+        # Iterate through original list
+        while current:
+
+            # If current node is less than x
+            if current.val < x:
+
+                # Add to less than list
+                less_curr.next = ListNode(current.val)  
+                less_curr = less_curr.next
+
+            # If current node is greater than or equal to x  
             else:
-                curr2.next = ListNode(curr.val)
-                curr2 = curr2.next
-            curr = curr.next
-        curr1.next = head2.next
-        return head1.next
+
+                # Add to greater than list
+                greater_curr.next = ListNode(current.val)
+                greater_curr = greater_curr.next
+
+            # Move to next node in original list  
+            current = current.next
+
+        # Join the two partitioned lists
+        less_curr.next = greater_head.next 
+
+        # Return new partitioned list
+        return less_head.next
