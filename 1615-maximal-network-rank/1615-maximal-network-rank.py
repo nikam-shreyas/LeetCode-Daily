@@ -10,6 +10,6 @@ class Solution:
         for i in range(n-1):
             for j in range(i+1, n):
                 # print(i, j)
-                rank = len(adj[i].copy().union(adj[j].copy()))
+                rank = len(adj[i].union(adj[j]))
                 maxrank = max(maxrank, rank)
         return maxrank
