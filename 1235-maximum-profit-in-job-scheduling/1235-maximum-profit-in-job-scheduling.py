@@ -1,9 +1,15 @@
 class Solution:
     def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
-        jobs = sorted(zip(startTime, endTime, profit), key=lambda v: v[1])
-        dp = [[0, 0]]
-        for s, e, p in jobs:
-            i = bisect.bisect(dp, [s + 1]) - 1
-            if dp[i][1] + p > dp[-1][1]:
-                dp.append([e, dp[i][1] + p])
-        return dp[-1][1]
+        jobs = [(s,e,p) for s,e,p in sorted(zip(startTime, endTime, profit))]
+        minHeap = [] # tuple(end time, max profit ending at this job)
+        maxProfit = 0
+
+        for s,e,p in jobs:
+            # pop all jobs with end time before cur start time (s) to update max profit up until s.
+            while minHeap and minHeap[0][0] <= s:
+                _, prevProfit = heappop(minHeap)
+                maxProfit = max(maxProfit, prevProfit)
+            # add next job to heap with added profit.
+            heappush(minHeap, (e, maxProfit + p))
+        
+        return max(minHeap, key=lambda x: x[1])[1]
