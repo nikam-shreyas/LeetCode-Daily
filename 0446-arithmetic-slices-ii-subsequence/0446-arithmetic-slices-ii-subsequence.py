@@ -1,5 +1,6 @@
 class Solution:
     def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+                    
         n = len(nums)
         dp = [defaultdict(int) for _ in range(n)]
         
@@ -15,3 +16,4 @@ class Solution:
                 ans += cnt
                 
         return ans
+        
