@@ -25,3 +25,4 @@ class Solution:
         dfs(root2)
         s2 = seq[:]
         return s1==s2
+        
