@@ -1,16 +1,20 @@
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
-        unique = []
-        for s in arr:
-            u = set(s)
-            if len(u) == len(s): unique.append(u)
-        
-        # [2] now start with an empty concatenation and iteratively
-        #    increase its length by trying to add more strings
-        concat = [set()]
-        for u in unique:
-            for c in concat:
-                if not c & u:
-                    concat.append(c | u)
-        
-        return max(len(cc) for cc in concat)
+        newarr = []
+        for word in arr:
+            if len(set(word))==len(word):
+                newarr.append(word)
+        d = defaultdict(set)
+        for word in newarr:
+            d[word] = set(word)
+            for u in list(d.keys()):
+                if d[u].intersection(set(word))==set():
+                    d[u+word] = d[u].union(set(word))
+        maxlen = 0
+        maxword = None
+        for word in d:
+            if len(word)>maxlen:
+                maxlen = len(word)
+                maxword = word
+        # print(d)
+        return maxlen
