@@ -23,5 +23,3 @@ class Solution:
             return max(left, right)
 
         return helper(root, root.val, root.val)
-        
-                
