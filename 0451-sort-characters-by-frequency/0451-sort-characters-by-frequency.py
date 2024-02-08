@@ -1,12 +1,13 @@
 from collections import Counter
+from heapq import heapify, heappush, heappop
 class Solution:
     def frequencySort(self, s: str) -> str:
-        def sorting_key(element):
-            key, value = element
-            return -value
         counter = Counter(s)
-        sorted_counter = sorted(counter.items(), key=sorting_key)
-        ans = ['']
-        for key, value in sorted_counter:
-            ans.extend([key]*value)
-        return ''.join(ans)
+        h = [(-value, key) for key, value in counter.items()]
+        heapify(h)
+        ans = ""
+        while h:
+            value, key = heappop(h)
+            value = -value
+            ans+=key*value
+        return ans
